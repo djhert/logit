@@ -18,7 +18,7 @@ type CurrentTime struct {
 }
 
 func (c *CurrentTime) Format() string {
-	return fmt.Sprintf("%02d/%02d/%04d - %02d:%02d:%02d.%04d: ", c.Month, c.Day, c.Year, c.H, c.M, c.S, c.Ns)
+	return fmt.Sprintf("[%02d/%02d/%04d %02d:%02d:%02d.%04d] ", c.Month, c.Day, c.Year, c.H, c.M, c.S, c.Ns)
 }
 
 func (c *CurrentTime) Update() {
@@ -93,8 +93,9 @@ func (l *Logger) Log(log string) {
 	<-l.unlock
 }
 
-func (l *Logger) Print() {
-	//fmt.Println(l.fileName)
+func (l *Logger) Logf(format string, a ...interface{}) {
+	l.log <- fmt.Sprintf(format, a...)
+	<-l.unlock
 }
 
 func genError(err error) error {
