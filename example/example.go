@@ -2,33 +2,33 @@ package main
 
 import (
 	"fmt"
+	"github.com/hlfstr/logit"
 	"os"
 	"time"
-	"zedcontinuum.com/Zed/Logit"
 )
 
 //Globally Declare your Logs
-var ThisLog *Logit.Logger
-var ThatLog *Logit.Logger
+var ThisLog *logit.Logger
+var ThatLog *logit.Logger
 
 func main() {
 	//Create an "Error" variable
 	var err error
 
 	//Create a logfile named "this" in the relative directory
-	thisFile, err := Logit.OpenFile("thisfile.log")
+	thisFile, err := logit.OpenFile("thisfile.log")
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
 	}
-	ThisLog, err = Logit.StartLogger(thisFile)
+	ThisLog, err = logit.StartLogger(thisFile)
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
 	}
 
 	//Create a terminal Logger
-	ThatLog, err = Logit.StartLogger(Logit.TermLog())
+	ThatLog, err = logit.StartLogger(logit.TermLog())
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)

@@ -1,4 +1,4 @@
-package Logit
+package logit
 
 import (
 	"fmt"
