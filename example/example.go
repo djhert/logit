@@ -21,14 +21,14 @@ func main() {
 		fmt.Println(err)
 		os.Exit(1)
 	}
-	ThisLog, err = logit.StartLogger(thisFile)
+	ThisLog, err = logit.Start(thisFile)
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
 	}
 
 	//Create a terminal Logger
-	ThatLog, err = logit.StartLogger(logit.TermLog())
+	ThatLog, err = logit.Start(logit.TermLog())
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
@@ -53,11 +53,11 @@ func test(i int) {
 	for j := 0; j < 100; j++ {
 		//Append string to end of "this" log
 		s = fmt.Sprintf("This: I am number %d, look at me!", i)
-		ThisLog.Log(s)
+		ThisLog.Log(logit.MSG, s)
 
 		//Append string to end of "this" log
 		s = fmt.Sprintf("That: I am number %d, look at me!", i)
-		ThatLog.Log(s)
+		ThatLog.Log(logit.DEBUG, s)
 
 		//Make the goroutine wait .25 of a second
 		time.Sleep(time.Millisecond * 250)
