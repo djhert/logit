@@ -7,10 +7,10 @@ import (
 	"time"
 )
 
-type Level int
+type Status int
 
-func (l Level) String() string {
-	switch l {
+func (s Status) String() string {
+	switch s {
 	case 1:
 		return " (WARNING)"
 	case 2:
@@ -43,7 +43,7 @@ type Logger struct {
 }
 
 type msg struct {
-	lvl Level
+	lvl Status
 	s   string
 }
 
@@ -85,14 +85,14 @@ func (l *Logger) Quit() {
 	<-l.closure
 }
 
-func (l *Logger) Log(e Level, a ...string) {
+func (l *Logger) Log(e Status, a ...string) {
 	l.log <- msg{lvl: e, s: strings.Join(a, " ")}
 }
 
-func (l *Logger) Logf(e Level, format string, a ...interface{}) {
+func (l *Logger) Logf(e Status, format string, a ...interface{}) {
 	l.log <- msg{lvl: e, s: fmt.Sprintf(format, a...)}
 }
 
-func (l *Logger) LogError(o Level, e error) {
+func (l *Logger) LogError(o Status, e error) {
 	l.Log(o, e.Error())
 }
